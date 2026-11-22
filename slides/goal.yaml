@@ -1,0 +1,27 @@
+# 簡報目標：給「完全沒學過通訊」的人看的 OFDM 入門
+title: OFDM 是什麼？
+subtitle: 用 LLM Wiki 做的入門教學簡報
+audience: 大學部、沒有修過通訊系統的同學（知道正弦波與「頻率」是什麼即可）
+duration_min: 15
+# 學習目標：聽完之後要能說出……（每一項對應一個 wiki 概念頁）
+objectives:
+  - id: ofdm-basics
+    goal: 用一句話說出 OFDM 在做什麼
+  - id: multipath-isi
+    goal: 說明為什麼高速傳輸會被多路徑回音干擾
+  - id: subcarrier-orthogonality
+    goal: 解釋子載波為什麼可以重疊又不互相干擾
+  - id: cyclic-prefix
+    goal: 說出循環前綴的兩個作用
+  - id: one-tap-equalization
+    goal: 說明接收端為什麼「一個除法」就能消除通道影響
+  - id: pilots-channel-estimation
+    goal: 說明接收端怎麼知道通道長什麼樣子
+  - id: papr
+    goal: 舉出 OFDM 的一個硬體代價
+  - id: cfo
+    goal: 舉出 OFDM 最怕的一種誤差
+  - id: ofdma
+    goal: 說明 OFDM 如何讓多人同時使用
+  - id: applications-history
+    goal: 舉出三個生活中用到 OFDM 的系統

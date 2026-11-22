@@ -1,0 +1,229 @@
+# 節點 N5「整理重點」的產出：每一點都標註 src（來自哪個 wiki 頁）
+# 規則見 CLAUDE.md；由 pipeline/check_outline.py 檢查
+slides:
+  - id: s01
+    kind: title
+    title: OFDM（正交分頻多工）是什麼？
+    subtitle: 把一條快車道，拆成很多條慢車道
+    bullets: []
+
+  - id: s02
+    kind: agenda
+    title: 今天的路線
+    bullets:
+      - t: 問題：訊號會有回音
+      - t: 解法：拆成很多個子載波，並讓它們正交
+      - t: 實作：傅立葉轉換、循環前綴、一個除法的等化
+      - t: 代價：尖峰功率、頻率偏移
+      - t: 應用：Wi-Fi、4G、5G
+
+  - id: s03
+    kind: bullets
+    title: 問題：無線訊號會有「回音」
+    concepts: [multipath-isi]
+    figure: multipath
+    bullets:
+      - t: 訊號會經過直射、反射等好幾條路抵達接收端
+        src: [multipath-isi]
+      - t: 晚到的回音會疊到下一個符號上，叫做 ISI（符號間干擾）
+        src: [multipath-isi]
+      - t: 傳得越快（符號越短），回音的影響越嚴重
+        src: [multipath-isi]
+
+  - id: s04
+    kind: bullets
+    title: 想法：一條快車道 → 很多條慢車道
+    concepts: [ofdm-basics]
+    figure: lanes
+    bullets:
+      - t: OFDM 把一路高速資料拆成很多路低速資料
+        src: [ofdm-basics]
+      - t: 每一路放在一個子載波上，用 QAM（正交振幅調變）等方式調變
+        src: [ofdm-basics]
+      - t: 每個符號變長，回音相對變短，ISI 就容易處理
+        src: [ofdm-basics, multipath-isi]
+      - t: 總資料率和單載波差不多，但抗多路徑強很多
+        src: [ofdm-basics]
+
+  - id: s05
+    kind: bullets
+    title: 子載波重疊，卻不互相干擾？
+    concepts: [subcarrier-orthogonality]
+    figure: spectrum
+    math: '\Delta f = \frac{1}{T_U}'
+    bullets:
+      - t: 子載波間距剛好等於符號長度的倒數
+        src: [subcarrier-orthogonality]
+      - t: 每個子載波的峰值，落在其他子載波的零點上
+        src: [subcarrier-orthogonality]
+      - t: 所以不需要保護頻帶，頻譜可以排得很密
+        src: [subcarrier-orthogonality]
+
+  - id: s06
+    kind: bullets
+    title: 實作：IFFT（反快速傅立葉轉換）
+    concepts: [ifft-fft]
+    figure: blocks
+    bullets:
+      - t: 發射端：QAM 符號 → IFFT → 加循環前綴 → 送出
+        src: [ifft-fft]
+      - t: 接收端：去掉循環前綴 → FFT（快速傅立葉轉換）→ 逐一處理
+        src: [ifft-fft]
+      - t: 不用 N 組振盪器，一個數位運算就搞定
+        src: [ifft-fft]
+      - t: 1971 年 Weinstein 與 Ebert 提出用 DFT 實作
+        src: [ifft-fft, applications-history]
+
+  - id: s07
+    kind: bullets
+    title: 循環前綴：把尾巴貼到頭
+    concepts: [cyclic-prefix]
+    figure: cp
+    bullets:
+      - t: CP（循環前綴）把符號尾端複製一段，貼在開頭
+        src: [cyclic-prefix]
+      - t: 作用一：回音只落在 CP 裡，丟掉 CP 就沒有 ISI
+        src: [cyclic-prefix]
+      - t: 作用二：通道效果變成循環卷積 → FFT 後變乘法
+        src: [cyclic-prefix]
+      - t: 條件：CP 長度至少要等於通道長度
+        src: [cyclic-prefix]
+
+  - id: s08
+    kind: bullets
+    title: 一個除法就能等化
+    concepts: [one-tap-equalization]
+    math: 'Y_k = H_k X_k + W_k \quad\Rightarrow\quad \hat{X}_k = \frac{Y_k}{H_k}'
+    bullets:
+      - t: 每個子載波只被通道乘上一個複數 $H_k$
+        src: [one-tap-equalization]
+      - t: 接收端除以 $H_k$ 就還原，叫做 one-tap 等化
+        src: [one-tap-equalization]
+      - t: 前提：CP 夠長、通道在一個符號內變化不大
+        src: [one-tap-equalization]
+
+  - id: s09
+    kind: bullets
+    title: 接收端怎麼知道 $H_k$？靠導頻
+    concepts: [pilots-channel-estimation]
+    figure: pilots
+    bullets:
+      - t: 在部分子載波放雙方都知道的符號（導頻）
+        src: [pilots-channel-estimation]
+      - t: 收到值 ÷ 已知值 = 這個子載波的通道
+        src: [pilots-channel-estimation]
+      - t: 其他子載波用鄰近導頻內插
+        src: [pilots-channel-estimation]
+
+  - id: s10
+    kind: table
+    title: 真實數字：Wi-Fi 802.11a
+    concepts: [wifi-80211a-example]
+    table:
+      - [FFT 大小, '64']
+      - [實際使用的子載波, 52 個（FFT 64 點中）]
+      - [子載波間距, 312.5 kHz = 1 / 3.2 µs]
+      - [循環前綴, 0.8 µs（開銷 20%）]
+      - [通道寬度, 20 MHz]
+      - [資料率, 6–54 Mbit/s]
+    src: [wifi-80211a-example]
+
+  - id: s11
+    kind: bullets
+    title: 代價一：PAPR（峰均功率比）太高
+    concepts: [papr]
+    figure: papr
+    bullets:
+      - t: 很多子載波偶爾同相相加，冒出很高的尖峰
+        src: [papr]
+      - t: 功率放大器要很線性，效率因此變差
+        src: [papr]
+      - t: 直接削掉尖峰會失真，也不是好方法
+        src: [papr]
+
+  - id: s12
+    kind: bullets
+    title: 代價二：頻率一偏，正交就壞掉
+    concepts: [cfo]
+    figure: spectrum-cfo
+    bullets:
+      - t: 兩端振盪器不可能完全同頻 → 一定有 CFO（載波頻率偏移）
+        src: [cfo]
+      - t: 802.11 最壞 ±40 ppm，在 5.2 GHz 約 ±208 kHz
+        src: [cfo]
+      - t: 偏移後峰值對不準零點 → 產生 ICI（子載波間干擾）
+        src: [cfo]
+      - t: 補償後殘餘要很小，64QAM 約 0.01 個間距
+        src: [cfo]
+
+  - id: s13
+    kind: bullets
+    title: OFDMA（多使用者 OFDM）：讓很多人同時用
+    concepts: [ofdma]
+    figure: grid
+    bullets:
+      - t: 把「時間 × 子載波」切成格子，分給不同使用者
+        src: [ofdma]
+      - t: LTE（4G）的資源塊是 12 個子載波 × 14 個符號
+        src: [ofdma]
+      - t: 依每個人的通道狀況分配，避開衰落
+        src: [ofdma]
+      - t: 用在 4G 下行、5G、Wi-Fi 6
+        src: [ofdma]
+
+  - id: s14
+    kind: table
+    title: 5G 的新招：子載波間距可以調
+    concepts: [nr-numerology]
+    table:
+      - [15 kHz, slot 1 ms, 和 LTE 相同]
+      - [30 kHz, slot 0.5 ms, FR1]
+      - [60 kHz, slot 0.25 ms, FR1／FR2]
+      - [120 kHz, slot 0.125 ms, FR2]
+    note: 間距加倍 → 符號與 slot 減半 → 延遲更低（又是 Δf = 1/T_U）
+    src: [nr-numerology]
+
+  - id: s15
+    kind: timeline
+    title: 從 1966 到你的手機
+    concepts: [applications-history]
+    timeline:
+      - [1966, Chang（Bell Labs）提出 OFDM]
+      - [1971, 用 DFT 實作]
+      - [1997, DVB-T 數位電視]
+      - [1999, Wi-Fi 802.11a]
+      - [2005–2007, LTE 採用 OFDMA]
+      - [5G, OFDM + 可調子載波間距]
+    src: [applications-history]
+
+  - id: s16
+    kind: summary
+    title: 總結：OFDM 的一句話
+    bullets:
+      - t: 拆成很多個正交子載波 → 每個符號變長
+        src: [ofdm-basics, subcarrier-orthogonality]
+      - t: 加循環前綴 → 沒有 ISI，一個除法就能等化
+        src: [cyclic-prefix, one-tap-equalization]
+      - t: 代價是 PAPR 高、怕頻率偏移
+        src: [papr, cfo]
+
+  - id: s17
+    kind: quiz
+    title: 小測驗
+    quiz:
+      - q: 循環前綴是把符號的哪一段複製到哪裡？
+        options: [開頭複製到尾端, 尾端複製到開頭, 中間複製到兩邊]
+        answer: 1
+        src: [cyclic-prefix]
+      - q: 子載波間距 Δf 和有效符號長度 T_U 的關係？
+        options: [Δf = T_U, Δf = 1/T_U, Δf = 2T_U]
+        answer: 1
+        src: [subcarrier-orthogonality]
+      - q: 頻率偏移會造成哪一種干擾？
+        options: [ISI, ICI, 兩者都不會]
+        answer: 1
+        src: [cfo]
+
+  - id: s18
+    kind: refs
+    title: 參考資料（Wiki 的 6 篇來源）

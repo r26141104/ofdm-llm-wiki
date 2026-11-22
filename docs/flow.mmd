@@ -1,0 +1,31 @@
+flowchart TD
+    N1["N1 取得資料<br/>WebFetch 6 篇來源 → raw/"]
+    N2a["N2a 先討論<br/>wiki/discussions/Dx<br/>重點・疑點・決定"]
+    N2b["N2b 後生成<br/>概念頁・來源頁・index・log・glossary"]
+    N3{"N3 Wiki lint<br/>L1–L7（含：數字要在來源找得到）"}
+    N4["N4 查詢 Wiki<br/>依學習目標沿 prereq 圖排序<br/>＋輸出「必看①②」"]
+    N5["N5 整理重點<br/>slides/outline.yaml<br/>每一點標註引用的 wiki 頁"]
+    N6{"N6 檢查內容<br/>O1–O6：引用・數字・順序・縮寫・份量・涵蓋"}
+    N7["N7 產生簡報<br/>docs/slides.html ＋ wiki 網站"]
+    N8{"N8 檢查成品<br/>瀏覽器逐頁檢查 P1–P5<br/>＋看截圖"}
+    END(["完成：輸出簡報與執行紀錄"])
+
+    N1 --> N2a --> N2b --> N3
+    N3 -- "失敗：修頁面" --> N2b
+    N3 -- "通過・還有下一篇來源" --> N1
+    N3 -- "6 篇都 ingest 完" --> N4
+    N4 -- "目標在 wiki 找不到頁面" --> N1
+    N4 --> N5 --> N6
+    N6 -- "引用／順序／縮寫／份量錯" --> N5
+    N6 -- "wiki 本身缺資料" --> N1
+    N6 -- "通過" --> N7 --> N8
+    N8 -- "版面問題" --> N7
+    N8 -- "一頁內容太多" --> N5
+    N8 -- "通過" --> END
+
+    classDef check fill:#fdf1e6,stroke:#d9731a,stroke-width:2px,color:#1d2a3a
+    classDef step fill:#e6f2f2,stroke:#0f7c80,stroke-width:2px,color:#1d2a3a
+    classDef done fill:#1d2a3a,stroke:#1d2a3a,color:#ffffff
+    class N3,N6,N8 check
+    class N1,N2a,N2b,N4,N5,N7 step
+    class END done

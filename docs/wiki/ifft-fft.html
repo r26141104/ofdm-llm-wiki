@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>用 IFFT／FFT 實作 OFDM</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>用 IFFT／FFT 實作 OFDM</h1><div class="meta">類型：concept　來源：S1、S6　前置概念：<a href="subcarrier-orthogonality.html">subcarrier-orthogonality</a></div><h2>一句話</h2>
+<p>發射端用 <strong>IFFT（Inverse Fast Fourier Transform，反快速傅立葉轉換）</strong> 一次產生所有子載波疊加後的時域波形；接收端用 <strong>FFT（快速傅立葉轉換）</strong> 一次把所有子載波分開。</p>
+<h2>發射端流程</h2>
+<ol>
+<li>位元 → 分成平行串流 → 各自對應成 QAM／PSK 符號 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">X_k</annotation></semantics></math></span>。</li>
+<li>把 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">X_k</annotation></semantics></math></span> 放到等間距的頻率格上，做 N 點 IFFT → N 個時域樣本 = 一個 OFDM 符號。</li>
+<li>加上 <a href="cyclic-prefix.html">循環前綴</a> → DAC → 升頻送出。</li>
+</ol>
+<h2>接收端流程</h2>
+<ol>
+<li>降頻 → ADC → 丟掉 CP。</li>
+<li>N 點 FFT → 得到每個子載波上的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">Y_k</annotation></semantics></math></span>。</li>
+<li>每個子載波各自等化與判斷（見 <a href="one-tap-equalization.html">一階等化</a>）→ 還原位元。</li>
+</ol>
+<h2>為什麼這很重要</h2>
+<p>如果不用 IFFT，就要 N 組獨立的振盪器與濾波器；IFFT／FFT 讓「很多子載波」變成一個數位運算，實作成本大幅下降。這個想法在 1971 年由 Weinstein 與 Ebert 提出（見 <a href="applications-history.html">OFDM 的歷史與應用</a>）。</p>
+<h2>來源</h2>
+<p>S1、S6</p></body></html>

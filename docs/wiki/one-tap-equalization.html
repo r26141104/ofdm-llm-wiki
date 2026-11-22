@@ -1,0 +1,31 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>一階等化（One-tap Equalization）</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>一階等化（One-tap Equalization）</h1><div class="meta">類型：concept　來源：S1、S2、S6　前置概念：<a href="cyclic-prefix.html">cyclic-prefix</a></div><h2>一句話</h2>
+<p>有了 CP，多路徑通道在頻域變成「每個子載波各自乘上一個複數」，所以接收端每個子載波<strong>只要除以那個複數</strong>就能還原。</p>
+<h2>式子</h2>
+<p>第 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>k</mi></mrow><annotation encoding="application/x-tex">k</annotation></semantics></math></span> 個子載波：</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><msub><mi>Y</mi><mi>k</mi></msub><mo>=</mo><msub><mi>H</mi><mi>k</mi></msub><msub><mi>X</mi><mi>k</mi></msub><mo>+</mo><msub><mi>W</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">Y_k = H_k X_k + W_k</annotation></semantics></math></span></p>
+<ul>
+<li><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">X_k</annotation></semantics></math></span>：傳出去的符號　<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">H_k</annotation></semantics></math></span>：通道在這個子載波上的複數增益　<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>W</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">W_k</annotation></semantics></math></span>：雜訊</li>
+<li>等化：<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent="true"><mi>X</mi><mo>^</mo></mover><mi>k</mi></msub><mo>=</mo><msub><mi>Y</mi><mi>k</mi></msub><mi mathvariant="normal">/</mi><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\hat{X}_k = Y_k / H_k</annotation></semantics></math></span></li>
+</ul>
+<h2>為什麼叫 one-tap</h2>
+<p>每個子載波只需要<strong>一個</strong>係數（一個 tap）。相比之下，單載波系統在時域等化常常需要很長的濾波器。</p>
+<h2>前提</h2>
+<ul>
+<li><a href="cyclic-prefix.html">循環前綴</a> 長度 ≥ 通道長度。</li>
+<li>通道在一個符號時間內變化不大。</li>
+<li>要知道 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">H_k</annotation></semantics></math></span> → 見 <a href="pilots-channel-estimation.html">導頻與通道估計</a>。</li>
+</ul>
+<h2>額外好處</h2>
+<p>每個子載波看到的是平坦衰落，只需一個係數，所以很容易和 MIMO 結合。</p>
+<h2>來源</h2>
+<p>S1、S2、S6</p></body></html>

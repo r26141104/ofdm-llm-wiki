@@ -1,0 +1,26 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>討論 D4：Ingest S4（OFDMA）之前</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>討論 D4：Ingest S4（OFDMA）之前</h1><div class="meta">類型：discussion　</div><p><strong>來源</strong>：<a href="S4-wikipedia-ofdma.html">S4 — Wikipedia：Orthogonal frequency-division multiple access</a>　<strong>相關現有頁</strong>：<a href="ofdm-basics.html">OFDM 基本概念</a>、<a href="applications-history.html">OFDM 的歷史與應用</a></p>
+<h2>這篇最重要的點</h2>
+<ol>
+<li>OFDMA = 把子載波（以及時間）分給不同使用者；OFDM 本身是「一個使用者用全部子載波」。</li>
+<li>好處：多人同時傳、延遲穩定、可依通道狀況分配。</li>
+<li>代價：對頻率偏移與相位雜訊更敏感。</li>
+</ol>
+<h2>疑點</h2>
+<ul>
+<li>我原本以為 LTE 上行用 SC-FDMA，S4 沒有這樣寫，S5 也沒提 DFT-s-OFDM → 不寫，避免沒有來源的說法。</li>
+</ul>
+<h2>決定</h2>
+<ul>
+<li>新增 <code>ofdma</code> 頁，prereq = <code>ofdm-basics</code>。</li>
+<li>在 <code>applications-history</code> 補上 Wi-Fi 6（802.11ax）、LTE 下行、5G NR 使用 OFDMA。</li>
+</ul></body></html>

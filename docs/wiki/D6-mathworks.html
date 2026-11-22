@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>討論 D6：Ingest S6（MathWorks：What Is OFDM?）之前</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>討論 D6：Ingest S6（MathWorks：What Is OFDM?）之前</h1><div class="meta">類型：discussion　</div><p><strong>來源</strong>：<a href="S6-mathworks-ofdm.html">S6 — MathWorks：What Is OFDM?</a>　<strong>相關現有頁</strong>：幾乎全部的基礎頁</p>
+<h2>這篇最重要的點</h2>
+<ol>
+<li>跟 S1 大致重疊，但<strong>用工程流程</strong>講：編碼 → QAM → IFFT → 加 CP → 通道 → 等化。很適合做簡報的方塊圖。</li>
+<li>第二個獨立來源確認「CP ≥ 通道脈衝響應 → 一個複數乘法等化」。</li>
+<li>新資訊：每個子載波是平坦衰落 → 很適合 MIMO；LTE 資源塊 = 12 子載波 × 14 符號。</li>
+</ol>
+<h2>跟現有頁的關係</h2>
+<ul>
+<li><code>ifft-fft</code>、<code>one-tap-equalization</code>、<code>pilots-channel-estimation</code> 各加上 S6 作為第二個來源（交叉驗證）。</li>
+<li><code>ofdma</code> 可補一句 LTE 資源塊的大小。</li>
+<li>沒有衝突。</li>
+</ul>
+<h2>決定</h2>
+<ul>
+<li>不新增概念頁，只更新上述頁面的 sources 與內容。</li>
+<li>MATLAB 工具清單不寫進概念頁，只留在來源摘要頁。</li>
+</ul></body></html>

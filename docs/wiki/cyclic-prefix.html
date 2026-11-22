@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>循環前綴（Cyclic Prefix, CP）</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>循環前綴（Cyclic Prefix, CP）</h1><div class="meta">類型：concept　來源：S1、S2、S5、S6　前置概念：<a href="multipath-isi.html">multipath-isi</a>、<a href="ifft-fft.html">ifft-fft</a></div><h2>一句話</h2>
+<p><strong>CP（Cyclic Prefix，循環前綴）</strong>：把 OFDM 符號的<strong>尾端複製一段，貼到開頭</strong>，當作保護區間。接收端收到後把這段丟掉。</p>
+<h2>它做了兩件事</h2>
+<ol>
+<li><strong>擋住 ISI</strong>：前一個符號的回音只會落在 CP 裡，而 CP 會被丟掉。見 <a href="multipath-isi.html">多路徑與符號間干擾</a>。</li>
+<li><strong>讓等化變成一個乘法</strong>：因為 CP 是符號自己的尾巴，通道的線性卷積在 CP 之後看起來就像<strong>循環卷積</strong>；而循環卷積做 DFT 之後會變成<strong>逐點相乘</strong>。見 <a href="one-tap-equalization.html">一階等化</a>。</li>
+</ol>
+<h2>長度條件</h2>
+<p>CP 的長度至少要等於通道的長度（多路徑延遲擴散）。太短 → 回音漏進有效符號 → ISI 和子載波間干擾又回來了。</p>
+<h2>代價</h2>
+<p>CP 不帶新資料，是純粹的開銷。以 802.11a 為例，CP 0.8 µs、有效符號 3.2 µs，開銷 = 0.8 /(3.2 + 0.8) = 20%（推導）。見 <a href="wifi-80211a-example.html">實例：IEEE 802.11a 的 OFDM 參數</a>。</p>
+<h2>在 5G 裡</h2>
+<p>CP 長度和子載波間距成反比：15 kHz 時 4.7 µs，240 kHz 時約 0.29 µs。見 <a href="nr-numerology.html">5G NR 的子載波間距</a>。</p>
+<h2>來源</h2>
+<p>S1、S2、S5、S6</p></body></html>

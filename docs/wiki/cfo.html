@@ -1,0 +1,36 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>載波頻率偏移（CFO）</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>載波頻率偏移（CFO）</h1><div class="meta">類型：concept　來源：S1、S3　前置概念：<a href="subcarrier-orthogonality.html">subcarrier-orthogonality</a></div><h2>一句話</h2>
+<p><strong>CFO（Carrier Frequency Offset，載波頻率偏移）</strong>：接收端振盪器和發射端不完全同頻，整個訊號在頻域被平移一點點。</p>
+<h2>為什麼一定會有</h2>
+<ul>
+<li>兩個振盪器不可能完全一樣快——即使完全不動也會有 CFO。</li>
+<li>移動造成的都卜勒效應也會產生 CFO（通常比振盪器誤差小）。</li>
+</ul>
+<h2>有多大</h2>
+<ul>
+<li>IEEE 802.11 允許每個振盪器 ±20 ppm → 收發兩端合起來最壞 ±40 ppm。</li>
+<li>在 5.2 GHz：約 ±208 kHz。</li>
+<li>和 802.11a 的子載波間距 312.5 kHz 相比：208 / 312.5 ≈ 0.67 個間距（推導）。</li>
+</ul>
+<h2>對 OFDM 的影響</h2>
+<ul>
+<li>子載波平移後，峰值不再對準其他子載波的零點 → 正交性被破壞 → <strong>ICI（Inter-Carrier Interference，子載波間干擾）</strong>。</li>
+<li>正規化 CFO <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ε</mi></mrow><annotation encoding="application/x-tex">\varepsilon</annotation></semantics></math></span> = 頻率偏移 ÷ 子載波間距，拆成<strong>整數部分</strong>（子載波索引整個平移）與<strong>小數部分</strong>（振幅衰減、相位旋轉、ICI）。</li>
+<li>補償後剩下的殘餘 CFO 要很小：64QAM 約 0.01，QPSK 約 0.03。</li>
+</ul>
+<h2>怎麼處理（只列名字）</h2>
+<ul>
+<li>Moose 的 ML 估計（估小數部分）、BLUE 估計、用長 preamble 做匹配濾波（估整數部分）。</li>
+<li>殘餘 CFO 用導頻追蹤（見 <a href="pilots-channel-estimation.html">導頻與通道估計</a>）。</li>
+</ul>
+<h2>來源</h2>
+<p>S1、S3</p></body></html>

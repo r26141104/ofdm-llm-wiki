@@ -1,0 +1,25 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>多路徑與符號間干擾（Multipath &amp; ISI）</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>多路徑與符號間干擾（Multipath &amp; ISI）</h1><div class="meta">類型：concept　來源：S1、S2　前置概念：無</div><h2>一句話</h2>
+<p>訊號從發射端到接收端會走好幾條路（直射、牆壁反射、建築物反射），晚到的「回音」會疊到下一個符號上，這就是 <strong>ISI（Inter-Symbol Interference，符號間干擾）</strong>。</p>
+<h2>直覺</h2>
+<ul>
+<li>像在山谷裡講話：你講得越快，上一個字的回音越容易蓋到下一個字。</li>
+<li>回音拖多長叫做<strong>延遲擴散</strong>（delay spread）。符號越短（傳得越快），延遲擴散相對越長，ISI 越嚴重。</li>
+</ul>
+<h2>OFDM 怎麼處理</h2>
+<ul>
+<li>把一條快速資料流拆成很多條慢速資料流 → 每個符號變長，延遲擴散相對變得很短。見 <a href="ofdm-basics.html">OFDM 基本概念</a>。</li>
+<li>在符號之間加保護區間（實際放的是 <a href="cyclic-prefix.html">循環前綴</a>）。只要延遲擴散比保護區間短，就不會有 ISI。</li>
+<li>例子：1 ms 的符號配 1/8 的保護區間 = 125 µs，可以容忍約 37.5 km 的路徑差。</li>
+</ul>
+<h2>來源</h2>
+<p>S1、S2</p></body></html>

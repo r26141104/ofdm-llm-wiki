@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>討論 D3：Ingest S3（載波頻率偏移）之前</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>討論 D3：Ingest S3（載波頻率偏移）之前</h1><div class="meta">類型：discussion　</div><p><strong>來源</strong>：<a href="S3-wikipedia-cfo.html">S3 — Wikipedia：Carrier frequency offset</a>　<strong>相關現有頁</strong>：<a href="subcarrier-orthogonality.html">子載波正交性</a>、<a href="pilots-channel-estimation.html">導頻與通道估計</a></p>
+<h2>這篇最重要的點</h2>
+<ol>
+<li>CFO 的主因是兩端振盪器不同頻，一定存在，不只是都卜勒。</li>
+<li>有具體數字：802.11 允許 ±20 ppm → 最壞 ±40 ppm → 5.2 GHz 時約 ±208 kHz。</li>
+<li>正規化 CFO = 偏移 / 子載波間距，拆成整數部分與小數部分，兩者效果不同。</li>
+<li>殘餘 CFO 容許量：64QAM 約 0.01，QPSK 約 0.03。</li>
+</ol>
+<h2>跟現有頁的關係</h2>
+<ul>
+<li>可以順便做一個好懂的對照（推導）：±208 kHz ÷ 802.11a 的 312.5 kHz ≈ 0.67 個子載波間距，遠大於 0.01 的容許量 → 所以一定要估計並補償。</li>
+<li><code>pilots-channel-estimation</code> 要補一句：導頻也用來追蹤殘餘 CFO 與 SCO。</li>
+</ul>
+<h2>決定</h2>
+<ul>
+<li>新增 <code>cfo</code> 頁，prereq = <code>subcarrier-orthogonality</code>。</li>
+<li>估計演算法（Moose、BLUE、匹配濾波）只列名字與一句話，不展開推導——對初學者太深。</li>
+</ul></body></html>

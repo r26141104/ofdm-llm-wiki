@@ -1,0 +1,27 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>導頻與通道估計</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>導頻與通道估計</h1><div class="meta">類型：concept　來源：S1、S3、S6　前置概念：<a href="one-tap-equalization.html">one-tap-equalization</a></div><h2>一句話</h2>
+<p><strong>導頻（pilot）</strong>：在某些子載波上放「收發雙方事先都知道」的符號。接收端比對收到的值和已知值，就能算出那個子載波的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">H_k</annotation></semantics></math></span>。</p>
+<h2>怎麼做（概念）</h2>
+<ul>
+<li>在導頻子載波上：<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent="true"><mi>H</mi><mo>^</mo></mover><mi>k</mi></msub><mo>=</mo><msub><mi>Y</mi><mi>k</mi></msub><mi mathvariant="normal">/</mi><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\hat{H}_k = Y_k / X_k</annotation></semantics></math></span>（<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>X</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">X_k</annotation></semantics></math></span> 已知）。</li>
+<li>其他子載波的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">H_k</annotation></semantics></math></span> 用鄰近導頻的估計值內插。</li>
+<li>估出來的 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mover accent="true"><mi>H</mi><mo>^</mo></mover><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">\hat{H}_k</annotation></semantics></math></span> 交給 <a href="one-tap-equalization.html">一階等化</a> 使用。</li>
+</ul>
+<h2>導頻的其他用途</h2>
+<ul>
+<li>追蹤殘餘的頻率偏移（見 <a href="cfo.html">載波頻率偏移</a>）。</li>
+<li>追蹤取樣時脈偏移（SCO）：SCO 造成的相位旋轉與子載波索引成正比，所以能和 CFO 分開。</li>
+</ul>
+<h2>代價</h2>
+<p>導頻子載波不帶使用者資料，也是一種開銷。</p>
+<h2>來源</h2>
+<p>S1、S3、S6</p></body></html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>子載波正交性</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>子載波正交性</h1><div class="meta">類型：concept　來源：S1、S6　前置概念：<a href="ofdm-basics.html">ofdm-basics</a></div><h2>一句話</h2>
+<p>子載波的頻譜雖然重疊，但只要<strong>子載波間距 = 有效符號長度的倒數</strong>，在每個子載波的中心頻率上，其他子載波的貢獻剛好是 0。</p>
+<p><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>f</mi><mo>=</mo><mfrac><mn>1</mn><msub><mi>T</mi><mi>U</mi></msub></mfrac></mrow><annotation encoding="application/x-tex">\Delta f = \frac{1}{T_U}</annotation></semantics></math></span></p>
+<h2>直覺</h2>
+<ul>
+<li>在長度 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>U</mi></msub></mrow><annotation encoding="application/x-tex">T_U</annotation></semantics></math></span> 的時間裡，每個子載波都剛好跑整數圈。兩個不同子載波相乘再積分，正負剛好抵消 → 正交。</li>
+<li>頻域上看，每個子載波是一個 sinc 形狀；某個子載波的峰值，正好落在其他所有子載波的零點上。</li>
+</ul>
+<h2>好處</h2>
+<ul>
+<li>不需要傳統 FDM 的保護頻帶，也不需要每個子通道各自的濾波器 → 頻譜利用率高。</li>
+<li>N 個子載波的總頻寬約為 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>≈</mo><mi>N</mi><mtext> </mtext><mi mathvariant="normal">Δ</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">B \approx N\,\Delta f</annotation></semantics></math></span>。</li>
+</ul>
+<h2>例子</h2>
+<p>802.11a：<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>T</mi><mi>U</mi></msub></mrow><annotation encoding="application/x-tex">T_U</annotation></semantics></math></span> = 3.2 µs → <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">Δ</mi><mi>f</mi></mrow><annotation encoding="application/x-tex">\Delta f</annotation></semantics></math></span> = 1/3.2 µs = 312.5 kHz。見 <a href="wifi-80211a-example.html">實例：IEEE 802.11a 的 OFDM 參數</a>。</p>
+<h2>什麼會破壞正交</h2>
+<p>頻率偏移、都卜勒 → 見 <a href="cfo.html">載波頻率偏移</a>。</p>
+<h2>來源</h2>
+<p>S1、S6</p></body></html>

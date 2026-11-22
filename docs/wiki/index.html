@@ -1,0 +1,130 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>OFDM LLM Wiki — 索引</title><style>
+body{font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",system-ui,sans-serif;max-width:860px;margin:0 auto;padding:28px 22px 80px;color:#1d2a3a;line-height:1.75;background:#fbfaf7}
+a{color:#0f7c80}nav{font-size:14px;margin-bottom:24px;color:#6b7787}nav a{margin-right:14px}
+h1{font-size:30px;border-bottom:4px solid #0f7c80;padding-bottom:8px}h2{font-size:22px;margin-top:30px}
+table{border-collapse:collapse;margin:12px 0}td,th{border:1px solid #dfe3e6;padding:6px 12px}th{background:#e7eef0}
+.meta{font-size:14px;color:#6b7787;background:#fff;border:1px solid #dfe3e6;border-radius:10px;padding:10px 14px}
+code{background:#e7eef0;padding:1px 5px;border-radius:4px}math[display=block]{margin:14px 0;font-size:1.25em}
+.hero{background:linear-gradient(135deg,#0f7c80,#1d2a3a);color:#fff;border-radius:18px;padding:34px}
+.hero a{color:#fff;font-weight:700}.cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid #dfe3e6;border-radius:14px;padding:18px}
+</style></head><body><nav><a href="../index.html">首頁</a><a href="../wiki/index.html">Wiki 索引</a><a href="../wiki/glossary.html">術語表</a><a href="../wiki/log.html">變更紀錄</a><a href="../slides.html">教學簡報</a></nav><h1>OFDM LLM Wiki — 索引</h1><div class="meta">類型：meta　</div><p>這是一個以 <strong>OFDM（正交分頻多工）</strong> 為主題的 LLM Wiki：由 LLM 讀取 6 篇來源、先討論後生成，維護成互相連結的 markdown 頁面。規則見 <code>CLAUDE.md</code>，變更紀錄見 <a href="log.html">Wiki 變更紀錄</a>，術語見 <a href="glossary.html">術語表</a>。</p>
+<h2>概念頁（建議閱讀順序）</h2>
+<table>
+<thead>
+<tr>
+<th>頁面</th>
+<th>一句話</th>
+<th>來源數</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="multipath-isi.html">多路徑與符號間干擾</a></td>
+<td>回音疊到下一個符號 = ISI</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="ofdm-basics.html">OFDM 基本概念</a></td>
+<td>一條快車道拆成很多條慢車道</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="subcarrier-orthogonality.html">子載波正交性</a></td>
+<td>Δf = 1/T_U，重疊但不干擾</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="ifft-fft.html">用 IFFT／FFT 實作 OFDM</a></td>
+<td>一次 IFFT 產生所有子載波</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="cyclic-prefix.html">循環前綴</a></td>
+<td>尾巴貼到頭：擋 ISI、讓等化變乘法</td>
+<td>4</td>
+</tr>
+<tr>
+<td><a href="one-tap-equalization.html">一階等化</a></td>
+<td>每個子載波除以一個複數</td>
+<td>3</td>
+</tr>
+<tr>
+<td><a href="pilots-channel-estimation.html">導頻與通道估計</a></td>
+<td>用已知符號估出通道</td>
+<td>3</td>
+</tr>
+<tr>
+<td><a href="wifi-80211a-example.html">實例：IEEE 802.11a 的 OFDM 參數</a></td>
+<td>用 802.11a 的真實數字驗證</td>
+<td>1</td>
+</tr>
+<tr>
+<td><a href="papr.html">峰均功率比</a></td>
+<td>波形尖峰讓功率放大器很辛苦</td>
+<td>1</td>
+</tr>
+<tr>
+<td><a href="cfo.html">載波頻率偏移</a></td>
+<td>頻率偏一點，正交就壞掉</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="ofdma.html">OFDMA</a></td>
+<td>把子載波分給多個使用者</td>
+<td>2</td>
+</tr>
+<tr>
+<td><a href="nr-numerology.html">5G NR 的子載波間距</a></td>
+<td>5G 用可調的子載波間距</td>
+<td>1</td>
+</tr>
+<tr>
+<td><a href="applications-history.html">OFDM 的歷史與應用</a></td>
+<td>從 1966 到 5G</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<h2>來源摘要頁</h2>
+<table>
+<thead>
+<tr>
+<th>ID</th>
+<th>頁面</th>
+<th>討論紀錄</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>S1</td>
+<td><a href="S1-wikipedia-ofdm.html">S1 — Wikipedia：Orthogonal frequency-division multiplexing</a></td>
+<td><a href="D1-ofdm-overview.html">討論 D1：Ingest S1</a></td>
+</tr>
+<tr>
+<td>S2</td>
+<td><a href="S2-wikipedia-cyclic-prefix.html">S2 — Wikipedia：Cyclic prefix</a></td>
+<td><a href="D2-cyclic-prefix.html">討論 D2：Ingest S2</a></td>
+</tr>
+<tr>
+<td>S3</td>
+<td><a href="S3-wikipedia-cfo.html">S3 — Wikipedia：Carrier frequency offset</a></td>
+<td><a href="D3-cfo.html">討論 D3：Ingest S3</a></td>
+</tr>
+<tr>
+<td>S4</td>
+<td><a href="S4-wikipedia-ofdma.html">S4 — Wikipedia：Orthogonal frequency-division multiple access</a></td>
+<td><a href="D4-ofdma.html">討論 D4：Ingest S4</a></td>
+</tr>
+<tr>
+<td>S5</td>
+<td><a href="S5-wikipedia-5g-nr.html">S5 — Wikipedia：5G NR</a></td>
+<td><a href="D5-5g-nr.html">討論 D5：Ingest S5</a></td>
+</tr>
+<tr>
+<td>S6</td>
+<td><a href="S6-mathworks-ofdm.html">S6 — MathWorks：What Is OFDM?</a></td>
+<td><a href="D6-mathworks.html">討論 D6：Ingest S6</a></td>
+</tr>
+</tbody>
+</table></body></html>
