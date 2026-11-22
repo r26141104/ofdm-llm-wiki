@@ -1,0 +1,102 @@
+# 驗證 workflow 第 2 版：依 test-v2/query_result.md（含「必看 ①②」）從頭寫的第二份大綱
+slides:
+  - id: t01
+    kind: title
+    title: 子載波間距怎麼選？
+    subtitle: 從 Wi-Fi 到 5G，看 OFDM（正交分頻多工）的一個關鍵參數
+    bullets: []
+
+  - id: t02
+    kind: bullets
+    title: 先複習：為什麼要把資料拆成很多路？
+    concepts: [multipath-isi, ofdm-basics]
+    bullets:
+      - t: 無線訊號有回音，晚到的回音會疊到下一個符號，叫 ISI（符號間干擾）
+        src: [multipath-isi]
+      - t: 拆成很多個慢速子載波，每個符號變長，回音的影響就變小
+        src: [ofdm-basics, multipath-isi]
+
+  - id: t03
+    kind: bullets
+    title: 間距和符號長度綁在一起
+    concepts: [subcarrier-orthogonality]
+    math: '\Delta f = \frac{1}{T_U}'
+    bullets:
+      - t: 子載波間距 = 有效符號長度的倒數，子載波才會正交
+        src: [subcarrier-orthogonality]
+      - t: 間距變大 → 符號變短；間距變小 → 符號變長
+        src: [subcarrier-orthogonality]
+      - t: 總頻寬約等於子載波數 × 間距
+        src: [subcarrier-orthogonality]
+
+  - id: t04
+    kind: bullets
+    title: 符號變短，保護區間也跟著變短
+    concepts: [ifft-fft, cyclic-prefix]
+    bullets:
+      - t: 一個 OFDM 符號由一次 IFFT（反快速傅立葉轉換）產生
+        src: [ifft-fft]
+      - t: 符號前面再加一段 CP（循環前綴）擋住回音
+        src: [cyclic-prefix]
+      - t: CP 長度至少要等於通道的長度（回音拖多長）
+        src: [cyclic-prefix]
+
+  - id: t05
+    kind: table
+    title: 例子：Wi-Fi 802.11a
+    concepts: [wifi-80211a-example]
+    table:
+      - [有效符號長度, 3.2 µs]
+      - [子載波間距, 312.5 kHz（= 1 / 3.2 µs）]
+      - [CP, 0.8 µs]
+      - [完整符號, 4.0 µs，CP 開銷 20%]
+      - [實際使用的子載波, 52 個（FFT 64 點）]
+    src: [wifi-80211a-example]
+
+  - id: t06
+    kind: bullets
+    title: 間距太小的風險：頻率偏移
+    concepts: [cfo]
+    bullets:
+      - t: 兩端振盪器不同頻 → CFO（載波頻率偏移）
+        src: [cfo]
+      - t: 802.11 最壞約 ±208 kHz，是 312.5 kHz 間距的 0.67 倍
+        src: [cfo]
+      - t: 偏移要以「幾個間距」來看；間距越小，同樣偏移傷害越大
+        src: [cfo]
+      - t: 正交被破壞會產生 ICI（子載波間干擾）
+        src: [cfo]
+
+  - id: t07
+    kind: table
+    title: 5G NR（5G 的空中介面）：間距可以選
+    concepts: [nr-numerology]
+    table:
+      - [15 kHz, slot 1 ms, 和 LTE 相同]
+      - [30 kHz, slot 0.5 ms, FR1]
+      - [60 kHz, slot 0.25 ms, FR1、FR2]
+      - [120 kHz, slot 0.125 ms, FR2]
+      - [240 kHz, slot 0.0625 ms, 只用於搜尋與量測]
+    note: 間距每加倍，slot 長度減半
+    src: [nr-numerology]
+
+  - id: t08
+    kind: bullets
+    title: 怎麼選？兩邊拉扯
+    concepts: [nr-numerology]
+    bullets:
+      - t: 大範圍覆蓋、回音長 → 小間距、長 CP
+        src: [nr-numerology]
+      - t: 低延遲、高頻段 → 大間距、短符號
+        src: [nr-numerology]
+      - t: 15 kHz 時 CP 4.7 µs，240 kHz 時只剩約 0.29 µs
+        src: [nr-numerology, cyclic-prefix]
+
+  - id: t09
+    kind: summary
+    title: 總結
+    bullets:
+      - t: 間距 × 符號長度 = 1，選間距就是在選符號長度
+        src: [subcarrier-orthogonality]
+      - t: 小間距抗回音，但怕頻率偏移；大間距延遲低
+        src: [cfo, nr-numerology]

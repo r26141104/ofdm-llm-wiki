@@ -275,3 +275,42 @@ check_outline：通過
 check_slides：通過（截圖在 runs/screens/）
 ```
 **全部節點通過，已輸出 docs/slides.html 與 docs/wiki/。**
+
+## 第 7 次執行　2026-11-22 20:12:00　— 驗證 workflow 第 2 版：用新流程從頭寫第二份大綱
+目的：第 6 次執行時正式大綱已經修好，無法證明「必看 ①②」有沒有用。這次換一個新主題
+「子載波間距怎麼選？從 Wi-Fi 到 5G」（slides/test-v2/），從 N4 查詢開始，讀完必看 ①② 才寫大綱，只跑 N4 → N5 → N6。
+
+### N4 查詢 Wiki：✅ PASS
+```
+PASS  找到 8 個頁面，教學順序：multipath-isi → ofdm-basics → subcarrier-orthogonality → ifft-fft → cyclic-prefix → wifi-80211a-example → cfo → nr-numerology
+```
+### N6 檢查內容（第一版大綱，slides/test-v2/outline-try1.yaml）：❌ FAIL
+```
+  PASS  O1 每點有引用且頁面存在
+  PASS  O2 數字與 wiki 一致
+  PASS  O3 教學順序符合 prereq
+  FAIL  O4 縮寫第一次出現有解釋（2）
+        - t05：「FFT」第一次出現沒有加（全名／中文）→ 實際使用的子載波 52 個（FFT 64 點）
+        - t07：「LTE」第一次出現沒有加（全名／中文）→ 15 kHz slot 1 ms 和 LTE 相同
+  PASS  O5 份量適合一頁
+  PASS  O6 學習目標都有涵蓋
+check_outline：2 個問題
+```
+**比較：第 1 版流程的第一版大綱 12 個問題 → 第 2 版流程 2 個問題；「寫了來源沒有的數字」1 → 0。**
+
+原因分析：
+- LTE：必看 ① 只列「這些頁面負責定義的術語」，但 nr-numerology 內文提到 LTE，而 LTE 定義在 applications-history（不在這次的查詢範圍）→ **清單本身有漏洞**。
+- FFT：必看 ① 有列，但寫大綱時以為「IFFT（反快速傅立葉轉換）」已經解釋過 FFT → 名字互相包含的縮寫容易漏。
+
+**→ 回到：N4 查詢 Wiki（改進清單）＋ N5 整理重點（修大綱）**
+
+## 第 8 次執行　2026-11-22 20:14:00　— workflow 第 3 版
+- query_wiki.py：必看 ① 改為「頁面定義的術語 ＋ 頁面內文提到的所有縮寫」→ 這次多列出 LTE。
+- query_wiki.py：名字互相包含的縮寫加上 ⚠ 提醒（本次：IFFT 和 FFT；正式簡報：IFFT 和 FFT、OFDMA 和 OFDM）。
+- 依新清單修正 t05、t07。
+
+### N6 檢查內容：✅ PASS
+```
+check_outline：通過（test-v2）
+lint：通過；正式簡報 check_outline：通過（改 query_wiki.py 沒有影響原本結果）
+```

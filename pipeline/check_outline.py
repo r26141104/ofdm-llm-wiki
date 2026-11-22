@@ -33,10 +33,10 @@ def slide_texts(s):
     return out
 
 
-def check(outline_path=ROOT / "slides" / "outline.yaml"):
+def check(outline_path=ROOT / "slides" / "outline.yaml", goal_path=ROOT / "slides" / "goal.yaml"):
     pages = load_pages()
     outline = yaml.safe_load(open(outline_path, encoding="utf-8"))["slides"]
-    goal = yaml.safe_load(open(ROOT / "slides" / "goal.yaml", encoding="utf-8"))
+    goal = yaml.safe_load(open(goal_path, encoding="utf-8"))
     issues = {k: [] for k in ["O1 每點有引用且頁面存在", "O2 數字與 wiki 一致", "O3 教學順序符合 prereq",
                               "O4 縮寫第一次出現有解釋", "O5 份量適合一頁", "O6 學習目標都有涵蓋"]}
 
@@ -99,8 +99,8 @@ def check(outline_path=ROOT / "slides" / "outline.yaml"):
     return issues
 
 
-def main():
-    issues = check()
+def main(*paths):
+    issues = check(*paths)
     total = sum(len(v) for v in issues.values())
     for k, v in issues.items():
         print(f"  {'PASS' if not v else 'FAIL'}  {k}" + (f"（{len(v)}）" if v else ""))
@@ -111,4 +111,4 @@ def main():
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(main(*sys.argv[1:3]))

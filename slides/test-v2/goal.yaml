@@ -1,0 +1,14 @@
+# 驗證 workflow 第 2 版用的第二份簡報目標（只跑 N4 → N5 → N6，不覆蓋正式簡報）
+title: 子載波間距怎麼選？從 Wi-Fi 到 5G
+subtitle: 用同一個 LLM Wiki 做的第二份短簡報
+audience: 大學部、沒有修過通訊系統的同學（知道正弦波與「頻率」是什麼即可）
+duration_min: 8
+objectives:
+  - id: subcarrier-orthogonality
+    goal: 說出子載波間距和符號長度的關係
+  - id: wifi-80211a-example
+    goal: 用 802.11a 的數字驗證這個關係
+  - id: cfo
+    goal: 說明為什麼頻率偏移要和子載波間距比較
+  - id: nr-numerology
+    goal: 說明 5G 為什麼要用好幾種子載波間距

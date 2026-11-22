@@ -49,6 +49,9 @@ terms: [縮寫, ...]        # 本頁負責定義的術語（要出現在 glossar
 1. 依 `query_result.md` 寫 `slides/outline.yaml`：每一點都要標註 `src`（引用哪個 wiki 頁）。
    **動筆前先讀 query_result.md 最後的「必看 ①②」**（縮寫寫法、來源沒有的內容）。
    這是第 1 次實際執行後加上的規則：第一版大綱的 12 個錯誤全部屬於這兩類。
+   第 7 次執行驗證：用新流程寫第二份大綱，錯誤從 12 個降到 2 個；
+   據此在第 3 版讓必看 ① 也列出「內文提到的縮寫」，並對 IFFT／FFT 這類名字互相包含的縮寫加上 ⚠ 提醒。
+   N6 的檢查仍然保留：提醒會被忽略，最後一道防線不能拿掉。
 2. `python pipeline/check_outline.py`：沒過就回到第 1 步修；若是 wiki 本身缺資料，回到 Ingest。
 3. `python pipeline/build_slides.py` 產生 `docs/slides.html`。
 4. `python pipeline/check_slides.py`：用瀏覽器實際打開每一頁檢查；沒過就回到第 3 步（版面）或第 1 步（內容太多）。
